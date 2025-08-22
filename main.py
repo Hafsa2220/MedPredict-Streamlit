@@ -33,16 +33,31 @@ def predict(df, threshold=None):
 
 def page_upload():
     st.header("Upload & Predict")
-    c1,c2,c3 = st.columns(3)
-    with c1: equip = st.text_input("Equipment Name","Microscope chirurgical ORL")
-    with c2: Company = st.text_input("Company","Leica")
-    with c3: model = st.text_input("Model","Provido")
+
+    # Download template
+    with open("assets/medpredict_template.xlsx", "rb") as f:
+        st.download_button(
+            "Download template",
+            f,
+            file_name="medpredict_template.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        equip = st.text_input("Equipment Name", value="", placeholder="Microscope chirurgical ORL")
+    with c2:
+        brand = st.text_input("Brand", value="", placeholder="Leica")
+    with c3:
+        model = st.text_input("Model", value="", placeholder="Provido")
+
     e = st.file_uploader("Excel (.xlsx)", type=["xlsx"])
     p = st.file_uploader("Manual (PDF) — optional", type=["pdf"])
+
     if st.button("Submit"):
         if not e:
             st.error("Upload an Excel file")
-            return
+            return  # ← bien à l'intérieur de la fonction !
         df = pd.read_excel(e, engine="openpyxl")
         cfg = load_cfg()
         thr = cfg["threshold"] if cfg.get("prob_mode") else None
@@ -50,6 +65,7 @@ def page_upload():
         df["Failure_Predicted"] = preds
         st.success(f"Predicted failures: {int(preds.sum())}")
         st.dataframe(df.head(100), use_container_width=True)
+
 
 def page_history():
     st.header("History")
