@@ -4,3 +4,5 @@ __pycache__/
 .DS_Store
 .vscode/
 history/*.xlsx
+history/runs/
+history/meta.csv
