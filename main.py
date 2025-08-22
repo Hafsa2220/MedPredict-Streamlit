@@ -1,32 +1,12 @@
-
 import json
 from pathlib import Path
 import pandas as pd
 import streamlit as st
 from PyPDF2 import PdfReader
+from app.utils.auth import verify_login, get_user_role
+
 
 st.set_page_config(page_title="MedPredict", page_icon="🩺", layout="wide")
-
-# --- simple auth (demo) ---
-if "role" not in st.session_state:
-    st.session_state["role"] = None
-if st.session_state["role"] is None:
-    st.title("MedPredict — Login")
-    u = st.text_input("Username", value="tech01")
-    p = st.text_input("Password", type="password", value="medtech")
-    if st.button("Login"):
-        if (u, p) == ("tech01","medtech"):
-            st.session_state["role"] = "technician"
-            st.experimental_rerun()
-        elif (u, p) == ("biomed01","biomed"):
-            st.session_state["role"] = "engineer"
-            st.experimental_rerun()
-        else:
-            st.error("Invalid credentials")
-    st.stop()
-
-st.sidebar.markdown(f"**Role:** {st.session_state['role']}")
-page = st.sidebar.radio("Navigation", ["Upload & Predict","History","Model & Thresholds","Rules & Actions","About","Logout"] if st.session_state["role"]=="engineer" else ["Upload & Predict","History","About","Logout"])
 
 def load_cfg():
     p = Path("history/config.json")
@@ -86,12 +66,64 @@ def page_model():
 def page_rules():
     st.header("Rules & Actions")
     st.info("Rules editor is included in the full package; this minimal starter shows navigation only.")
+# ---------- AUTH + NAV (propre) ----------
 
-if page=="Upload & Predict": page_upload()
-elif page=="History": page_history()
-elif page=="Model & Thresholds": page_model()
-elif page=="Rules & Actions": page_rules()
-elif page=="About": page_about()
-elif page=="Logout":
-    st.session_state["role"] = None
-    st.experimental_rerun()
+# init session
+if "auth_user" not in st.session_state:
+    st.session_state["auth_user"] = None
+
+# login form
+def login_view():
+    st.title("MedPredict — Login")
+    c1, c2 = st.columns(2)
+    with c1:
+        username = st.text_input("Username")
+    with c2:
+        password = st.text_input("Password", type="password")
+    if st.button("Login", type="primary"):
+        if verify_login(username, password):
+            st.session_state["auth_user"] = username
+            st.rerun()
+        else:
+            st.error("Invalid credentials")
+
+# gate
+if st.session_state["auth_user"] is None:
+    login_view()
+    st.stop()
+
+# role courant (PAS stocké en session)
+username = st.session_state["auth_user"]
+role = get_user_role(username)
+st.sidebar.caption(f"Signed in as **{username}** ({role})")
+
+# menu selon le rôle
+if role == "technician":
+    pages = ["Upload & Predict", "History", "About", "Logout"]
+else:
+    pages = ["Upload & Predict", "History", "Model & Thresholds", "Rules & Actions", "About", "Logout"]
+
+page = st.sidebar.radio("Navigation", pages, index=0)
+
+# router
+if page == "Upload & Predict":
+    page_upload()
+elif page == "History":
+    page_history()
+elif page == "Model & Thresholds":
+    page_model()
+elif page == "Rules & Actions":
+    page_rules()
+elif page == "About":
+    page_about()
+elif page == "Logout":
+    # option A : ne remettre à zéro que l’utilisateur
+    st.session_state["auth_user"] = None
+    st.rerun()
+
+    # option B : tout vider si tu stockes d’autres clés et veux repartir à zéro
+    # st.session_state.clear()
+    # st.rerun()
+
+# ---------- /AUTH + NAV ----------
+
