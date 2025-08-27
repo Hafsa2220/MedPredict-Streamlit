@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "username": "biomed01",
+      "hash": "$2b$12$qAnciJzSd1eMjbblvnPy9OqwddFntpfqq9Dl8XqHf4trw8ouirqsO",
+      "role": "engineer"
+    },
+    {
+      "username": "tech01",
+      "hash": "$2b$12$lUe5/uMIG7gnvm0lac5a6OVmtgLXGOUV3peVrW./iLDiYJd1ftk3q",
+      "role": "technician"
+    }
+  ]
+}

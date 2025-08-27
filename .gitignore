@@ -1,8 +1,44 @@
+# --- Environnements virtuels ---
 .venv/
+env/
+venv/
+
+# --- Cache Python ---
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# --- OS & IDE ---
 .DS_Store
 .vscode/
-history/*.xlsx
-history/runs/
-history/meta.csv
+*.swp
+*.swo
+
+# --- Streamlit secrets (⚠️ garder privé) ---
+.streamlit/secrets.toml
+
+# --- Historique local (runs / prédictions) ---
+data/history/
+history/
+!data/history/.gitkeep   # garder un fichier vide si besoin
+
+# --- Fichiers temporaires ---
+*.log
+*.tmp
+
+# --- Jupyter / IPython ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Excel/CSV générés ---
+predictions.csv
+predictions.xlsx
+
+# ignorer tous les pkl sauf ceux du dossier models
+*.pkl
+!models/microscope_orl.pkl
+!models/steelco_vs.pkl
+
+# --- Backup ---
+*~

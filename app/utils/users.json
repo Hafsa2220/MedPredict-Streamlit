@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "u": "biomed01",
+      "hash": "$2b$12$7qzvfNFP0dwMVVwfyOkgWOT/EFsJI2dGh56I54Wf71DtIZNfsXGeS",
+      "role": "engineer"
+    },
+    {
+      "u": "tech01",
+      "hash": "$2b$12$7/E5wWlQgENopeqQgjkXw.b2LUaj.VrYc7.C5tewO0KF9boc30giu",
+      "role": "technician"
+    },
+    {
+      "u": "tech02",
+      "role": "technician",
+      "hash": "$2b$12$dNyVxcKLUn2ZQgy.Vo5/weuFE7PYbauNVEIgVu8HMzFvbqsSLPEBa"
+    },
+    {
+      "u": "biomed02",
+      "role": "engineer",
+      "hash": "$2b$12$jOzn7zudwrYsJFskb0fYkOmcCE25zfCCmRgLwBEalXQN0ebtt9p9y"
+    }
+  ]
+}
