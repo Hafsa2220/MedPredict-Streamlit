@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Cooling system issue",
+    "when": [
+      {
+        "col": "message",
+        "contains": [
+          "cooling",
+          "overheat",
+          "refroid",
+          "refroidissement"
+        ]
+      }
+    ],
+    "action": "Priority intervention"
+  },
+  {
+    "name": "Power supply / motor issue",
+    "when": [
+      {
+        "col": "module",
+        "contains": [
+          "power",
+          "power supply",
+          "moteur",
+          "moteur x",
+          "alimentation"
+        ]
+      },
+      {
+        "col": "message",
+        "contains": [
+          "blocage",
+          "stalled",
+          "no start"
+        ]
+      }
+    ],
+    "action": "Check power train"
+  },
+  {
+    "name": "High severity",
+    "when": [
+      {
+        "col": "severity",
+        "in": [
+          "high",
+          "critical"
+        ]
+      }
+    ],
+    "action": "Immediate inspection"
+  },
+  {
+    "name": "Sensor / encoder",
+    "when": [
+      {
+        "col": "message",
+        "contains": [
+          "sensor",
+          "capteur",
+          "encoder",
+          "codeur"
+        ]
+      }
+    ],
+    "action": "Check sensor alignment & wiring"
+  },
+  {
+    "name": "Calibration drift",
+    "when": [
+      {
+        "col": "message",
+        "contains": [
+          "calibration",
+          "derive",
+          "dérive"
+        ]
+      }
+    ],
+    "action": "Recalibration required"
+  }
+]

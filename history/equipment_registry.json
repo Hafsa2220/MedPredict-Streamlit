@@ -1,0 +1,40 @@
+[
+  {
+    "id": "surg_microscope_orl",
+    "label": "Surgical microscope ORL",
+    "brand_options": [
+      "Leica"
+    ],
+    "model_options": [
+      "Provido"
+    ],
+    "model": {
+      "path": "models/microscope_orl.pkl",
+      "type": "sklearn_svm",
+      "features": []
+    },
+    "schema": {},
+    "prob_mode": false,
+    "threshold": 0.8,
+    "rules_path": "rules/microscope_orl.json"
+  },
+  {
+    "id": "autoclave",
+    "label": "Autoclave",
+    "brand_options": [
+      "Steelco"
+    ],
+    "model_options": [
+      "Série VS"
+    ],
+    "model": {
+      "path": "models/steelco_vs.pkl",
+      "type": "sklearn_svm",
+      "features": []
+    },
+    "schema": {},
+    "prob_mode": false,
+    "threshold": 0.6,
+    "rules_path": "rules/steelco_vs.json"
+  }
+]

@@ -42,3 +42,5 @@ predictions.xlsx
 
 # --- Backup ---
 *~
+!history/equipment_registry.json
+!history/rules.json
